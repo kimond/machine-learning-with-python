@@ -35,31 +35,29 @@ y = np.array(df['label'])
 X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, y, test_size=0.2)
 
 
-for k in ['linear', 'poly', 'rbf', 'sigmoid']:
-    clf = svm.SVR(kernel='linear')
-    clf.fit(X_train, y_train)
-    confidence = clf.score(X_test, y_test)
-    print(k, confidence)
+clf = svm.SVR(kernel='linear')
+clf.fit(X_train, y_train)
+confidence = clf.score(X_test, y_test)
 
-    forecast_set = clf.predict(X_lately)
+forecast_set = clf.predict(X_lately)
 
-    print(forecast_set, confidence, forecast_out)
+print(forecast_set, confidence, forecast_out)
 
-    df['Forecast'] = np.nan
+df['Forecast'] = np.nan
 
-    last_date = df.iloc[-1].name
-    last_unix = last_date.timestamp()
-    one_day = 86400
-    next_unix = last_unix + one_day
+last_date = df.iloc[-1].name
+last_unix = last_date.timestamp()
+one_day = 86400
+next_unix = last_unix + one_day
 
-    for i in forecast_set:
-        next_date = datetime.datetime.fromtimestamp(next_unix)
-        next_unix += one_day
-        df.loc[next_date] = [np.nan for _ in range(len(df.columns) - 1)] + [i]
+for i in forecast_set:
+    next_date = datetime.datetime.fromtimestamp(next_unix)
+    next_unix += one_day
+    df.loc[next_date] = [np.nan for _ in range(len(df.columns) - 1)] + [i]
 
-    df['Adj. Close'].plot()
-    df['Forecast'].plot()
-    plt.legend(loc=4)
-    plt.xlabel('Date')
-    plt.ylabel('Price')
-    plt.show()
+df['Adj. Close'].plot()
+df['Forecast'].plot()
+plt.legend(loc=4)
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.show()
