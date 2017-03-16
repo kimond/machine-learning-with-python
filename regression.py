@@ -7,6 +7,7 @@ from sklearn import preprocessing, cross_validation, svm
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 from matplotlib import style
+import pickle
 
 style.use('ggplot')
 
@@ -34,11 +35,16 @@ y = np.array(df['label'])
 
 X_train, X_test, y_train, y_test = cross_validation.train_test_split(X, y, test_size=0.2)
 
+try:
+    pickle_in = open('linearregression.pickle', 'rb')
+    clf = pickle.load(pickle_in)
+except FileNotFoundError:
+    clf = svm.SVR(kernel='linear')
+    clf.fit(X_train, y_train)
+    with open('linearregression.pickle', 'wb') as f:
+        pickle.dump(clf, f)
 
-clf = svm.SVR(kernel='linear')
-clf.fit(X_train, y_train)
 confidence = clf.score(X_test, y_test)
-
 forecast_set = clf.predict(X_lately)
 
 print(forecast_set, confidence, forecast_out)
