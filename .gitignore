@@ -96,3 +96,10 @@ ENV/
 .ropeproject
 
 /neuralnetworks/small_data/sentiment_set.pickle
+/neuralnetworks/large_data/training.1600000.processed.noemoticon.csv
+/neuralnetworks/large_data/testdata.manual.2009.06.14.csv
+/neuralnetworks/large_data/train_set.csv
+/neuralnetworks/large_data/processed-test-set.csv
+/neuralnetworks/large_data/train_set_shuffled.csv
+/neuralnetworks/large_data/test_set.csv
+/neuralnetworks/large_data/lexicon.pickle
