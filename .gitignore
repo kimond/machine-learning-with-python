@@ -103,3 +103,4 @@ ENV/
 /neuralnetworks/large_data/train_set_shuffled.csv
 /neuralnetworks/large_data/test_set.csv
 /neuralnetworks/large_data/lexicon.pickle
+/neuralnetworks/small_data/sentiment_set.pickle
